@@ -162,13 +162,13 @@
   * Components consist of a TypeScript class that defines the component's behavior and a template that defines its view.
   * Components are declared using the @Component decorator.
   * ```javascript
-		import { Component } from '@angular/core';
+	import { Component } from '@angular/core';
 
-		@Component({
-		selector: 'app-example',
-		template: '<h1>Hello, Angular!</h1>'
-		})
-		export class ExampleComponent {}
+	@Component({
+	selector: 'app-example',
+	template: '<h1>Hello, Angular!</h1>'
+	})
+	export class ExampleComponent {}
 	```
 * Attribute Directives: 
   * Attribute directives modify the behavior or appearance of an existing HTML element.
@@ -176,25 +176,25 @@
   * Angular provides several built-in attribute directives such as ngIf, ngFor, and ngStyle.
   * You can also create custom attribute directives to add custom behavior to HTML elements.
   * ```javascript
-	  import { Directive, ElementRef, HostListener } from '@angular/core';
-		@Directive({
-		selector: '[appCustomDirective]'
-		})
-		export class CustomDirective {
-		constructor(private el: ElementRef) {}
+	import { Directive, ElementRef, HostListener } from '@angular/core';
+	@Directive({
+	selector: '[appCustomDirective]'
+	})
+	export class CustomDirective {
+	constructor(private el: ElementRef) {}
 
-		@HostListener('mouseenter') onMouseEnter() {
-			this.highlight('yellow');
-		}
+	@HostListener('mouseenter') onMouseEnter() {
+		this.highlight('yellow');
+	}
 
-		@HostListener('mouseleave') onMouseLeave() {
-			this.highlight(null);
-		}
+	@HostListener('mouseleave') onMouseLeave() {
+		this.highlight(null);
+	}
 
-		private highlight(color: string) {
-			this.el.nativeElement.style.backgroundColor = color;
-		}
-		}
+	private highlight(color: string) {
+		this.el.nativeElement.style.backgroundColor = color;
+	}
+	}
   	```
 * Structural Directives:
   * Structural directives modify the structure of the HTML by adding, removing, or manipulating elements in the DOM.
@@ -206,7 +206,7 @@
 	</div>
 	```
 
-	
+
 
 
 
