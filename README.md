@@ -13,6 +13,10 @@
   - [Angular CLI](#angular-cli)
   - [Angular Services](#angular-services)
   - [Depdency Injection in Angular](#depdency-injection-in-angular)
+  - [Angular Template](#angular-template)
+  - [Angular Router](#angular-router)
+  - [Angular Pipes](#angular-pipes)
+  - [Angular Forms](#angular-forms)
 
 
 ## What is the difference between AngularJS and Angular
@@ -332,3 +336,113 @@
     * DI facilitates unit testing by allowing dependencies to be easily mocked or replaced with stubs during testing.
   * Flexibility: 
     * Angular's DI system allows for easy swapping of implementations, making it simple to introduce changes or alternate implementations without affecting other parts of the application
+
+
+## Angular Template
+
+* Templates in Angular are HTML files with additional syntax and features provided by Angular for data binding, directives, and other functionalities
+* Features of Angular Templates
+  * Data Binding
+    * Angular templates support various types of data binding, including interpolation ({{}}), property binding ([property]="value"), event binding ((event)="handler()"), and two-way binding ([(ngModel)]).
+  * Directives
+    * Angular templates can include Angular directives, which are instructions in the DOM that tell Angular how to modify the behavior or appearance of HTML elements.
+    * Directives like ngIf, ngFor, and ngClass are commonly used in Angular templates.
+  * Template Expressions
+    * Templates can contain expressions that are evaluated against the component's context. 
+    * These expressions can perform simple calculations, access properties and methods of the component class, and interact with template variables.
+  * Template Statements
+    * Alongside expressions, templates support statements for event handling and flow control. 
+    * For example, you can use *ngIf, *ngFor, and *ngSwitch to conditionally render elements.
+  * Template Reference Variables
+    * Angular templates allow you to create reference variables using the # symbol, which can be used to access elements or directives within the template.
+  * Template Interpolation
+    * Interpolation is a way to output data from the component class into the HTML template. 
+    * It's achieved by wrapping the expression in double curly braces ({{ expression }})
+
+
+## Angular Router
+
+* Module provided by Angular for managing navigation and routing in Angular applications 
+* Allows developers to define navigation paths, map them to specific components, and handle navigation events seamlessly
+* Importance
+  * Client-Side Routing
+    * Angular Router enables client-side routing, allowing users to navigate between different views of an application without full page reloads. 
+    * This results in faster navigation and better user experience.
+  * Single Page Application (SPA) Support
+    * Angular Router is essential for building Single Page Applications (SPAs) where the entire application is loaded once, and subsequent navigation occurs within the same page. 
+    * This approach improves performance and reduces server load.
+  * Nested Routing and Lazy Loading
+    * Angular Router supports nested routing, allowing developers to define routes hierarchically. Nested routes help in organizing complex applications with multiple levels of navigation.
+    * It also supports lazy loading of modules, allowing you to load parts of your application asynchronously when needed, improving initial load time and reducing the size of the main bundle.
+  * Route Parameters and Data Resolvers
+    * Angular Router allows passing parameters in routes, enabling dynamic routing based on user input or application state.
+    * It supports data resolvers, allowing developers to fetch necessary data before navigating to a route, ensuring that the route components have the required data when they render.
+  * Route Guards
+    * Angular Router provides route guards, which are used to protect routes based on certain conditions. 
+    * Route guards can prevent unauthorized access, perform authentication, and execute additional logic before activating a route
+  * HTML5 History API Integration
+    * Angular Router integrates with the HTML5 History API, enabling support for features like browser history manipulation, bookmarking, and deep linking
+  * Navigation Events and Lifecycle Hooks
+    * Angular Router emits events for various navigation actions, such as route activation, deactivation, and navigation start/end
+    * Developers can subscribe to these events and perform additional actions as needed.
+    * Route lifecycle hooks, such as OnInit, OnDestroy, and OnActivate, allow developers to execute code at specific points in the lifecycle of a route component.
+  * SEO (Search Engine Optimization)
+    * Angular Router supports server-side rendering and pre-rendering techniques, which are crucial for improving SEO and ensuring that search engine crawlers can index the content of Angular applications effectively
+
+## Angular Pipes
+
+* Angular Pipes are a feature provided by Angular that allows developers to transform and format data within a template. 
+* Pipes are used in template expressions to modify the output of data before displaying it to the user. 
+* Angular comes with several built-in pipes, and developers can also create custom pipes to suit specific application needs.
+* Key Features of Angular Pipes
+  * Transformation of Data
+    * Pipes are used to transform the data before displaying it in the template. 
+    * They can be used to format strings, numbers, dates, and other types of data.
+  * Chaining
+    * Multiple pipes can be chained together to perform multiple transformations on the data in a single expression.
+  * Parameterization
+    * Pipes can accept parameters to customize their behavior. Parameters are passed to the pipe using colon (`:`) syntax
+  * Pure and Impure Pipes
+    * Angular pipes can be either pure or impure.
+    * Pure pipes are stateless and only recalculate the output when the input data changes. They are more efficient and are the default type of pipe.
+    * Impure pipes can have internal state and can execute more frequently, even on every change detection cycle.
+  * Built-in pipes example
+    * DatePipe
+    * UpperCasePipe and LowerCasePipe
+    * CurrencyPipe
+    * DecimalPipe and PercentPipe
+    * AsyncPipe
+    * SlicePipe
+  * Custom Pipes Example
+```javascript
+// capitalize.pipe.ts
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'capitalize'
+})
+export class CapitalizePipe implements PipeTransform {
+  transform(value: string): string {
+    if (!value) return ''; // return empty string if value is null, undefined, or empty
+
+    return value.replace(/\b\w/g, firstLetter => firstLetter.toUpperCase());
+  }
+}
+```
+
+## Angular Forms
+
+* There are two types of forms in angular
+  * Template Driven Forms
+    * Template-driven forms rely on directives in the template to create and manipulate the form's structure and data model
+    * These forms are easier to get started with and are suitable for simpler forms with less complex validation requirements
+    * Template-driven forms use Angular directives like ngModel, ngForm, and ngSubmit to bind form controls to the data model and handle form submission
+    * The form controls are automatically synchronized with the data model, making it easy to access and manipulate form data in the component class
+    * Template-driven forms require less boilerplate code compared to reactive forms, making them quicker to set up and easier to maintain for simple form
+  * Reactive Form
+    * Reactive forms are based on a reactive programming model, where the form controls are created and managed programmatically in the component class. 
+    * These forms offer more flexibility and control over form validation and complex form scenarios.
+    * Reactive forms use instances of the FormControl, FormGroup, and FormArray classes to represent form controls, groups, and arrays programmatically.
+    * Validation logic is defined explicitly in the component class using validators provided by Angular or custom validator functions.
+    * Reactive forms promote immutability, which makes it easier to track changes to form data and perform operations like undo/redo.
+    * Reactive forms are more suitable for dynamic forms where form controls may be added or removed based on user interaction or data changes.
