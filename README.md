@@ -2,13 +2,17 @@
 
 
 - [Angular Important Topics](#angular-important-topics)
-	- [What is the difference between AngularJS and Angular](#what-is-the-difference-between-angularjs-and-angular)
-	- [Key Features of Angular](#key-features-of-angular)
-	- [Different Versions of Angular](#different-versions-of-angular)
-	- [Why TS used in Angular](#why-ts-used-in-angular)
-	- [Angular Components](#angular-components)
-	- [Data Binding in Angular](#data-binding-in-angular)
-	- [Angular Directives](#angular-directives)
+  - [What is the difference between AngularJS and Angular](#what-is-the-difference-between-angularjs-and-angular)
+  - [Key Features of Angular](#key-features-of-angular)
+  - [Different Versions of Angular](#different-versions-of-angular)
+  - [Why TS used in Angular](#why-ts-used-in-angular)
+  - [Angular Components](#angular-components)
+  - [Data Binding in Angular](#data-binding-in-angular)
+  - [Angular Directives](#angular-directives)
+  - [Angular Modules](#angular-modules)
+  - [Angular CLI](#angular-cli)
+  - [Angular Services](#angular-services)
+  - [Depdency Injection in Angular](#depdency-injection-in-angular)
 
 
 ## What is the difference between AngularJS and Angular
@@ -205,10 +209,126 @@
   		Content is visible
 	</div>
 	```
+## Angular Modules
+
+* Modules play a crucial role in organizing and structuring an application. 
+* They help in keeping the codebase manageable, modular, and maintainable
+* Types
+   *  NgModule (Angular Module)
+      *  An NgModule is a class marked by the @NgModule decorator.
+      *  It's a container for a cohesive block of code dedicated to a particular application domain, workflow, or closely related set of capabilities.
+      *  NgModule can contain components, services, directives, pipes, and other Angular features.
+   *  Core Module
+      *  Core Module is an NgModule that contains singleton services, components that are used globally throughout the application.
+      *  It helps in keeping the AppModule clean and focused on bootstrapping the application.
+   *  Shared Module
+      * A Shared Module is an NgModule that contains components, directives, and pipes that are shared across multiple modules in the application.
+      * It helps in avoiding code duplication and ensures consistency.
+* NgModule Metadata
+  * declarations: 
+    * Contains the list of components, directives, and pipes that belong to this module.
+  * imports: 
+    * Contains the list of other modules that this module needs to function properly. 
+  * exports: 
+    * Contains the list of declarations (components, directives, and pipes) that should be accessible to other modules that import this module.
+  * providers: 
+    * Contains the list of services available to the components of this module.
+  * bootstrap: 
+    * Defines the root component that Angular should bootstrap when this module is loaded.
+  * entryComponents: 
+    * Defines components that are not referenced in the HTML but are dynamically created (e.g., via ComponentFactoryResolver).
+  * schemas: 
+    * Defines the schemas that allow or deny elements and properties to be used in the module.
 
 
+## Angular CLI
+
+*  command-line tool provided by the Angular team to streamline the development process of Angular applications
+*  It simplifies common tasks in Angular development such as project scaffolding, code generation, testing, bundling, and deployment.
+*  Project Scaffolding:
+   *  `ng new my-app`
+*  Code Generation:
+   *  `ng generate component my-component`
+*  Development Server:
+   *  `ng serve`
+*  Code Building:
+   *  `ng build`
+*  Testing:
+   *  `ng testing`
+*  Linting:
+   *  `ng lint`
+*  Configuration:
+   *  Angular CLI provides configuration files (such as angular.json or tsconfig.json) to customize various aspects of the project, such as build settings, file paths, and more.
+*  Dependency Management:
+   *  ngular CLI handles dependency management, including installing, updating, and removing dependencies from the project using npm or yarn.
+*  Deployment:
+   *  Angular CLI facilitates the deployment process by providing optimized build artifacts that can be easily deployed to various hosting platforms.
+*  Benifts of using CLI
+   *  Productivity
+   *  Consistency
+   *  Performance
+   *  Community Support
+
+  
+## Angular Services
+
+* Fundamental part of the architecture and are used to organize and share code across the application
+* Services are typically classes with a specific purpose, such as fetching data from a server, logging, or performing calculations.
+* They help in keeping components lean and focused on the presentation logic while delegating business logic and data manipulation to the services.
+* Characteristics of Angular Services:
+  * Singletons
+    * meaning that there is only one instance of a service created and shared throughout the application.
+  * Dependency Injection (DI)
+    * used to provide services to components
+    * Services can be injected into components, other services, or even other services.
+  * Reusability
+    * they encapsulate common functionality that can be used across multiple components.
+    * keeping the application DRY (Don't Repeat Yourself).
+  * Separation of Concerns
+    * Separating business logic, data manipulation, and other non-UI related concerns from the components.
+    * This separation makes the codebase easier to maintain, test, and understand.
+  * Asynchronous Operations
+    * Asynchronous operations such as making HTTP requests to fetch data from a server.
+    * Provide a centralized location to manage data fetching and manipulation.
+* `ng generate service my-service`
 
 
+## Depdency Injection in Angular
 
-	
-
+* It's a technique where one object supplies the dependencies of another object
+* Used extensively to create and provide instances of services and other dependencies to components and other parts of the application
+* Key concepts:
+  * Injection Token
+    * Used to identify a dependency when it's registered with Angular's DI system.
+    * It's typically represented by a TypeScript token or a string
+  * Provider
+    * Used to register a dependency with Angular's DI system.
+    * It maps an Injection Token to a concrete implementation.
+  * Injector
+    * The Injector is responsible for instantiating dependencies and injecting them into classes that request them.
+    * Angular maintains a hierarchical injector system.
+  * Injectable
+    * The @Injectable() decorator is used to annotate a class to make it eligible for dependency injection.
+    * Services in Angular are typically annotated with `@Injectable()`.
+* How Dependency Injection Works in Angular:
+  * Registration
+    * Dependencies are registered with the Angular DI system using providers.
+    * Providers can be registered at the module level or at the component level.
+  * Injection
+    * When a component, directive, or another service requests a dependency, Angular's injector system looks up the provider for that dependency and creates an instance of it if necessary.
+    * It resolves the dependencies of the requested dependency recursively.
+  * Hierarchical Injection
+    * Angular's DI system works hierarchically.
+    * Each Angular application has its own root injector, and each component has its own injector.
+    * When a dependency is requested, Angular's injector first looks for it in the local injector of the component.
+    * If not found, it traverses up the component tree until it reaches the root injector.
+  * Lazy Loading and Scope
+    * Angular's DI system supports lazy loading, meaning dependencies are only instantiated when they are needed.
+    * Dependencies can have different scopes, such as singleton (shared instance across the application), module (shared within a module), or component (unique instance for each component).
+* Benefits of Dependency Injection in Angular:
+  * Modularity and Reusability: 
+    * Dependency Injection promotes modularity by decoupling components and services, making them easier to understand, maintain, and reuse
+  * Testability: 
+    * DI facilitates unit testing by allowing dependencies to be easily mocked or replaced with stubs during testing.
+  * Flexibility: 
+    * Angular's DI system allows for easy swapping of implementations, making it simple to introduce changes or alternate implementations without affecting other parts of the application
