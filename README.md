@@ -17,6 +17,13 @@
   - [Angular Router](#angular-router)
   - [Angular Pipes](#angular-pipes)
   - [Angular Forms](#angular-forms)
+  - [Angular Life Cycle](#angular-life-cycle)
+  - [Eager Loading vs Lazy Loading](#eager-loading-vs-lazy-loading)
+  - [Angular Guards](#angular-guards)
+  - [Angular Interceptor](#angular-interceptor)
+  - [Zone js in Angular](#zone-js-in-angular)
+  - [Angular Universal](#angular-universal)
+  - [Angular Change Detection Strategies](#angular-change-detection-strategies)
 
 
 ## What is the difference between AngularJS and Angular
@@ -446,3 +453,115 @@ export class CapitalizePipe implements PipeTransform {
     * Validation logic is defined explicitly in the component class using validators provided by Angular or custom validator functions.
     * Reactive forms promote immutability, which makes it easier to track changes to form data and perform operations like undo/redo.
     * Reactive forms are more suitable for dynamic forms where form controls may be added or removed based on user interaction or data changes.
+
+
+## Angular Life Cycle
+
+* ngOnChanges(): This method is called when Angular sets or resets data-bound input properties. It receives a SimpleChanges object containing the previous and current values of the input properties.
+
+* ngOnInit(): This method is called after Angular has initialized all data-bound properties of the component. It is a good place to perform initialization logic for the component.
+
+* ngDoCheck(): This method is called during every change detection run, which can be triggered by various events in the application. It allows you to implement custom change detection logic.
+
+* ngAfterContentInit(): This method is called after Angular has projected external content into the component's view (e.g., content projection using `<ng-content>`).
+
+* ngAfterContentChecked(): This method is called after Angular has checked the projected content of the component.
+
+* ngAfterViewInit(): This method is called after Angular has fully initialized the component's view and its child views. It is a good place to perform initialization logic that relies on the view being initialized.
+
+* ngAfterViewChecked(): This method is called after Angular has checked the component's view and its child views.
+
+* ngOnDestroy(): This method is called just before Angular destroys the component. It is a good place to clean up resources such as event listeners or subscriptions to avoid memory leaks.
+
+
+## Eager Loading vs Lazy Loading
+
+* Eager Loading
+  * By default, Angular modules are eagerly loaded, meaning that they are loaded as soon as the application starts.
+  * Eager loading is suitable for modules that are essential for the application to function properly, such as the root module (AppModule).
+* Lazy Loading
+  * Lazy loading allows Angular to load modules asynchronously when the user navigates to a specific route that requires those modules.
+  * Lazy loading can significantly improve the initial loading time of the application by only loading the necessary modules when they are needed.
+  * To lazy load a module, you configure the route to load that module using the loadChildren property of the route configuration.
+* Preloading Strategies:
+  * Angular provides options to preload lazy-loaded modules in the background after the initial load of the application, which can improve the user experience by reducing the loading time when navigating between different sections of the application.
+  * There are different preloading strategies such as PreloadAllModules, NoPreloading, and custom preloading strategies.
+
+
+## Angular Guards
+
+* CanActivate
+  * `CanActivate` guard determines whether a route can be activated or not. It's used to protect routes from being accessed by unauthorized users.
+  * Used for implementing authentication and authorization logic to allow or deny access to certain routes based on the user's credentials or permissions.
+  * The guard can return a boolean value, a `Promise<boolean>`, or an `Observable<boolean>`.
+* CanActivateChild
+  * CanActivateChild guard is similar to CanActivate, but it's specifically designed for protecting child routes of a parent route.
+  * Used when you want to apply the same authorization logic to all child routes of a parent route.
+* CanDeactivate
+  * CanDeactivate guard determines whether a route can be deactivated or not. It's used to prevent users from leaving a route with unsaved changes.
+  * It's commonly used in forms or wizards where you want to prompt users with a confirmation dialog before they navigate away from the page.
+* CanLoad
+  * CanLoad guard is used to prevent lazy-loaded modules from being loaded until certain conditions are met.
+  * It's useful for implementing access control to lazy-loaded modules, where you want to check whether a user is authorized to load the module before it's fetched from the server.
+* Resolve
+  * Resolve guard is used to fetch asynchronous data before the route is activated.
+  * It's often used to prefetch data required by a component so that the component can be fully initialized with data before being displayed to the user.
+  * The guard resolves the data before the route is activated, ensuring that the resolved data is available to the component.
+
+
+## Angular Interceptor
+
+* Angular Interceptors provide a way to intercept HTTP requests or responses globally or per-request basis.
+* They are powerful tools for adding behavior to HTTP requests and responses, such as modifying headers, handling errors, logging, caching, and more
+* HTTP Interceptors
+  * HTTP Interceptors are Angular services that implement the HttpInterceptor in
+  * 
+  * terface.
+  * They intercept HTTP requests or responses processed by the Angular HttpClient.
+  * Interceptors can be used to modify outgoing requests, intercept responses, and handle errors.
+  * You can create custom interceptors to add common functionality across multiple HTTP requests.
+* Common use case
+  * Authentication: Interceptors can add authentication tokens to outgoing requests or handle unauthorized responses.
+  * Logging: Interceptors can log request and response data for debugging purposes.
+  * Error Handling: Interceptors can intercept error responses and handle them in a consistent way, such as displaying error messages to the user.
+  * Caching: Interceptors can cache responses to avoid redundant requests to the server.
+  * Request Transformation: Interceptors can transform outgoing requests, such as adding headers or modifying the request body.
+* You can chain multiple interceptors together to apply different behaviors to HTTP requests and responses.
+* To create an interceptor, you need to implement the HttpInterceptor interface, which requires you to implement the intercept method.
+* Interceptors need to be registered with the Angular dependency injection system.
+You can register interceptors globally in the AppModule by providing them in the HTTP_INTERCEPTORS multi-provider token.
+
+
+## Zone js in Angular
+
+* `zone.js` is a critical part of Angular's architecture, providing the infrastructure needed for reactive change detection, error handling, and seamless integration with asynchronous operations. 
+* It abstracts away the complexities of managing asynchronous tasks and ensures that Angular applications remain responsive and performant.
+
+
+## Angular Universal
+
+* Angular Universal is a technology provided by the Angular framework that allows developers to render Angular applications on the server-side. 
+* Traditionally, Angular applications run entirely in the browser, but Angular Universal extends Angular's capabilities to support server-side rendering (SSR).
+* SSR can improve the perceived performance of Angular applications by reducing the time it takes for the initial content to be displayed to the user.
+* SSR ensures that the application's content is available to search engine crawlers and social media bots, which might not execute JavaScript.
+
+
+## Angular Change Detection Strategies
+
+* Angular, change detection is the mechanism by which Angular detects changes in the application state and updates the DOM to reflect those changes.
+* Default (Automatic) Change Detection 
+  * Angular's default change detection strategy, also known as automatic change detection, triggers change detection for all components in the application tree whenever an event, HTTP request, or other asynchronous operation occurs.
+  * Angular automatically checks all components and their child components for changes on every browser event, such as mouse movements, keyboard inputs, timers, and XHR responses.
+* OnPush Change Detection
+  * When using the OnPush strategy, Angular only checks a component for changes if one of its input properties has changed or if an event originated from the component or one of its children.
+  * Components using OnPush change detection must explicitly notify Angular of changes by using immutable data structures or triggering change detection manually using ChangeDetectorRef.
+  * This strategy can significantly improve the performance of applications by reducing the number of change detection checks and unnecessary DOM updates.
+* Noop Change Detection
+  * The Noop (No Operation) change detection strategy disables change detection entirely for a component and its subtree.
+  * When using the Noop strategy, Angular does not check for changes in the component's properties or trigger any change detection mechanisms
+  * This strategy is useful for scenarios where you want to manage change detection manually or optimize performance by bypassing Angular's change detection entirely.
+* Detached Change Detection
+  * The Detached change detection strategy is similar to Noop, but it allows you to manually trigger change detection for a component and its subtree.
+  * Components using the Detached strategy are not checked for changes automatically by Angular, but you can trigger change detection manually using ChangeDetectorRef.
+  * This strategy provides more control over change detection and can be useful for optimizing performance in specific scenarios.
+* 
