@@ -24,6 +24,9 @@
   - [Zone js in Angular](#zone-js-in-angular)
   - [Angular Universal](#angular-universal)
   - [Angular Change Detection Strategies](#angular-change-detection-strategies)
+  - [Angular Ivy Compiler](#angular-ivy-compiler)
+  - [AOT vs JIT](#aot-vs-jit)
+  - [Angular PWA](#angular-pwa)
 
 
 ## What is the difference between AngularJS and Angular
@@ -564,4 +567,53 @@ You can register interceptors globally in the AppModule by providing them in the
   * The Detached change detection strategy is similar to Noop, but it allows you to manually trigger change detection for a component and its subtree.
   * Components using the Detached strategy are not checked for changes automatically by Angular, but you can trigger change detection manually using ChangeDetectorRef.
   * This strategy provides more control over change detection and can be useful for optimizing performance in specific scenarios.
-* 
+
+
+## Angular Ivy Compiler
+
+* It was introduced as an opt-in preview in Angular version 8 and became the default in Angular 9
+* Ivy offers several benefits over the previous View Engine, including faster builds, improved debugging, smaller bundle sizes, and better template type checking
+* Features
+  * Incremental Compilation: 
+    * Ivy supports incremental compilation, which means that it only recompiles the parts of your application that have changed since the last build. This can significantly reduce build times, especially for larger projects.
+  * Localized Template Type Checking:
+    * Ivy performs type checking on Angular templates in a localized manner, which improves build speed and provides better error messages when there are template-related issues.
+  * Improved Debugging: 
+    * Ivy-generated code is more readable and debuggable, making it easier to diagnose and fix issues in your Angular applications.
+  * Smaller Bundle Sizes:
+    * Ivy produces smaller bundle sizes compared to the View Engine, leading to faster load times and improved performance for your Angular applications.
+  * Optimized Build Output: 
+    * Ivy optimizes the generated JavaScript code to eliminate unnecessary runtime overhead, resulting in more efficient execution by the browser.
+
+
+## AOT vs JIT
+
+* Ahead-of-Time (AOT) Compilation
+  * With AOT compilation, Angular compiles your templates and components during the build process, before the browser downloads and runs your code.
+  * Templates are converted into optimized JavaScript code during the build process, which is then included in the final bundle sent to the client.
+  * AOT compilation offers several advantages
+    * Faster Rendering: Since templates are compiled ahead of time, there's no need for the browser to compile them at runtime, leading to faster rendering and improved initial load times.
+    * Smaller Bundle Sizes: AOT compilation eliminates the Angular compiler from the final bundle sent to the client, resulting in smaller bundle sizes and reduced network overhead.
+    * Better Error Detection: Errors in templates, such as syntax errors or type mismatches, are caught during the build process rather than at runtime, providing better error detection and improved developer experience.
+  * AOT compilation is recommended for production builds of Angular applications due to its performance and size benefits.
+* Just-in-Time (JIT) Compilation
+  * With JIT compilation, Angular compiles your templates and components in the browser at runtime, as the application loads.
+  * Templates are compiled into JavaScript code dynamically by the Angular compiler, which is included in the final bundle sent to the client.
+  * JIT compilation is primarily used during development, as it offers some advantages for the development workflow:
+    * Faster Development Builds: JIT compilation can be faster for development builds since it doesn't require precompilation of templates during the build process.
+    * Easier Debugging: Since templates are compiled dynamically in the browser, it's easier to debug template-related issues during development.
+  * However, JIT compilation comes with some drawbacks in production
+    * Slower Initial Load Times: JIT compilation adds overhead to the initial loading of the application since templates need to be compiled in the browser.
+    * Larger Bundle Sizes: The Angular compiler is included in the final bundle sent to the client, increasing bundle sizes and leading to longer download times.
+
+
+## Angular PWA
+
+* Angular Progressive Web Apps (PWAs) are web applications built using the Angular framework that adhere to the principles and best practices of Progressive Web Apps. PWAs combine the capabilities of web technologies with the features of traditional mobile apps, providing users with a reliable, fast, and engaging experience
+* Features
+  * Responsive Design: Angular PWAs are designed to work seamlessly across various devices and screen sizes, including desktops, tablets, and smartphones. They utilize responsive design principles to adapt their layout and content dynamically based on the user's device
+  * Offline Support: One of the core features of PWAs is their ability to work offline or in low-connectivity environments. Angular PWAs leverage service workers, a modern web technology, to cache assets and data, allowing users to access the application even when they're offline. This enhances the reliability of the application and provides a better user experience.
+  * Fast Performance: Angular PWAs are optimized for performance, offering fast load times and smooth interactions. They achieve this by minimizing network requests, lazy loading modules, and optimizing asset delivery. Service workers also play a role in improving performance by serving cached content quickly and efficiently.
+  * App-like Experience: Angular PWAs aim to provide an app-like experience to users, including features such as push notifications, home screen installation, and fullscreen mode. Users can add the PWA to their home screen on supported devices, allowing them to launch the application with a single tap, just like a native app.
+  * Engagement and Retention: PWAs enable features like push notifications, which help in engaging users and driving retention. Developers can send targeted notifications to users, keeping them informed about updates, promotions, or relevant content, even when the PWA is not actively in use.
+  * Security: Angular PWAs follow best practices for security to protect users' data and ensure a safe browsing experience. They use HTTPS to encrypt data in transit, preventing eavesdropping and tampering. Service workers are also sandboxed to prevent malicious behavior.
